@@ -1,0 +1,26 @@
+# Logs
+logs
+pnpm-debug.log*
+
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+dist
+.DS_Store
+node_modules
+temp
+*.log
+.idea
+.eslintcache
+dts-build/packages
+*.tsbuildinfo
+*.tgz

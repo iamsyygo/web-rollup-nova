@@ -1,0 +1,31 @@
+{
+  "name": "web-rollup-nova",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && rollup --config rollup.config.ts --configPlugin typescript"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "packageManager": "pnpm@8.12.1",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.12.7",
+    "glob": "^10.3.12",
+    "rollup": "^4.16.1",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "tslib": "^2.6.2",
+    "@rollup/plugin-alias": "^5.1.0",
+    "rollup-plugin-vue": "^6.0.0"
+  },
+  "dependencies": {
+    "vue": "^3.4.24"
+  }
+}
