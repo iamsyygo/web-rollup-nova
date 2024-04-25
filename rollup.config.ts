@@ -1,15 +1,19 @@
-import { fileURLToPath } from 'node:url'
+// import { fileURLToPath } from 'node:url'
 // import { glob } from 'glob'
 
 import { defineConfig } from 'rollup'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import typescript from '@rollup/plugin-typescript'
-import alias from '@rollup/plugin-alias'
+import clear from 'rollup-plugin-delete'
+
+// import alias from '@rollup/plugin-alias'
+
+// 已经不维护了
 import vue from 'rollup-plugin-vue'
 // import typescript from 'rollup-plugin-typescript2'
 
-const rootPath = fileURLToPath(new URL('.', import.meta.url))
+// const rootPath = fileURLToPath(new URL('.', import.meta.url))
 // const files = glob.sync('./packages/**/src/**/*.ts')
 export default defineConfig([
   // {
@@ -38,25 +42,35 @@ export default defineConfig([
     output: [
       {
         file: 'packages/components/antd/es/index.js',
-        format: 'cjs',
+        format: 'esm',
       },
       {
-        file: 'packages/components/antd/lib/index.esm.js',
-        format: 'esm',
+        file: 'packages/components/antd/lib/index.js',
+        format: 'commonjs',
       },
     ],
     plugins: [
-      commonjs(),
-      nodeResolve(),
-      typescript({
-        include: [
-          'packages/components/antd/**/*.vue',
-          'packages/components/antd/**/*.ts',
+      clear({
+        targets: [
+          'packages/components/antd/es',
+          'packages/components/antd/lib',
         ],
       }),
       vue({
         exclude: 'node_modules/**',
         target: 'browser',
+      }),
+      nodeResolve(),
+      commonjs(),
+
+      typescript({
+        include: ['packages/components/antd/**/*', 'vite-env.d.ts'],
+        exclude: [
+          'node_modules/**',
+          'packages/components/antd/es/**',
+          'packages/components/antd/lib/**',
+        ],
+        outDir: 'packages/components/antd/',
       }),
     ],
     external: ['vue'],

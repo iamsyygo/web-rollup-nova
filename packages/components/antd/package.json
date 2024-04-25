@@ -1,9 +1,28 @@
 {
   "name": "@nova/antd",
   "version": "1.0.0",
-  "description": "",
+  "description": "extended ant-design-vue",
   "scripts": {},
   "keywords": [],
+  "files": [
+    "es",
+    "lib",
+    "package.json"
+  ],
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "es/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./es/index.js",
+      "require": "./lib/index.js"
+    },
+    "./es": "./es/index.js",
+    "./lib": "./lib/index.js"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ant-design-vue": "^4.2.1"
+  }
 }

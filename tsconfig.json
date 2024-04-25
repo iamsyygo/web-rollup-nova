@@ -19,13 +19,14 @@
     "removeComments": false,
     "jsx": "preserve",
     "lib": ["es2015", "dom"],
-    "types": ["node"],
+    "types": ["node", "vite/client"],
     "declaration": true,
     "paths": {
       // all packages under packages are src directories
       "@nova/*": ["packages/*/src"]
     }
   },
+  "include": ["packages/components/antd", "vite-env.d.ts"],
   // "include": [
   //   "packages/global.d.ts",
   //   "packages/**/*.ts",
