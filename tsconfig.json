@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "packages",
+    "baseUrl": ".",
     "outDir": "",
     "sourceMap": false,
     "target": "esnext",
@@ -26,7 +26,7 @@
       "@nova/*": ["packages/*/src"]
     }
   },
-  "include": ["packages/components/antd", "vite-env.d.ts"],
+  "include": ["packages/components/antd/**/*", "vite-env.d.ts"],
   // "include": [
   //   "packages/global.d.ts",
   //   "packages/**/*.ts",

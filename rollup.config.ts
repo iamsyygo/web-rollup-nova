@@ -4,7 +4,8 @@
 import { defineConfig } from 'rollup'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import typescript from '@rollup/plugin-typescript'
+// import typescript from '@rollup/plugin-typescript'
+import typescript2 from 'rollup-plugin-typescript2'
 import clear from 'rollup-plugin-delete'
 
 // import alias from '@rollup/plugin-alias'
@@ -56,22 +57,41 @@ export default defineConfig([
           'packages/components/antd/lib',
         ],
       }),
+
       vue({
         exclude: 'node_modules/**',
         target: 'browser',
       }),
       nodeResolve(),
       commonjs(),
+      {
+        transform(code, id) {
+          console.log('vvvvvvvvvvvvvvv')
+          console.log(id)
+          console.log('---------------')
+          console.log(code)
+          console.log('^^^^^^^^^^^^^^^')
+          // not returning anything, so doesn't affect bundle
+        },
+      },
 
-      typescript({
-        include: ['packages/components/antd/**/*', 'vite-env.d.ts'],
-        exclude: [
-          'node_modules/**',
-          'packages/components/antd/es/**',
-          'packages/components/antd/lib/**',
-        ],
-        outDir: 'packages/components/antd/',
-      }),
+      // fix https://github.com/rollup/plugins/issues/608#issuecomment-787460629
+      // typescript({
+      //   include: [
+      //     'packages/components/antd/**/*',
+      //     // 'packages/components/antd/**/*.vue',
+      //     'vite-env.d.ts',
+      //     // 'packages/components/antd/affix/src/Affix.vue?vue&type=script&setup=true&lang.ts',
+      //   ],
+      //   rootDir: '.',
+      //   exclude: [
+      //     'node_modules/**',
+      //     'packages/components/antd/es/**',
+      //     'packages/components/antd/lib/**',
+      //   ],
+      //   outDir: 'packages/components/antd/',
+      // }),
+      typescript2({}),
     ],
     external: ['vue'],
   },
