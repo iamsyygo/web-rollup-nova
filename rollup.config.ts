@@ -7,6 +7,10 @@ import commonjs from '@rollup/plugin-commonjs'
 // import typescript from '@rollup/plugin-typescript'
 import typescript2 from 'rollup-plugin-typescript2'
 import clear from 'rollup-plugin-delete'
+import cssOnly from 'rollup-plugin-css-only'
+
+// maybe only antd is needed,migration may be required later
+import postcss from 'rollup-plugin-postcss'
 
 // import alias from '@rollup/plugin-alias'
 
@@ -42,11 +46,20 @@ export default defineConfig([
     input: 'packages/components/antd/index.ts',
     output: [
       {
-        file: 'packages/components/antd/es/index.js',
+        // file: 'packages/components/antd/es/index.js',
+        dir: 'packages/components/antd/es',
+        // https://rollupjs.org/configuration-options/#output-preservemodules
+        // 保留原模块结构，尽可能将产物打包成一个文件
+        preserveModules: true,
+        // assetFileNames(chunkInfo) {
+        //   return 'assets/[name].[ext]'
+        // },
         format: 'esm',
       },
       {
-        file: 'packages/components/antd/lib/index.js',
+        // file: 'packages/components/antd/lib/index.js',
+        dir: 'packages/components/antd/lib',
+        preserveModules: true,
         format: 'commonjs',
       },
     ],
@@ -61,19 +74,25 @@ export default defineConfig([
       vue({
         exclude: 'node_modules/**',
         target: 'browser',
+        preprocessStyles: true,
+        transformAssetUrls: true,
+
+        // cssModulesOptions: {
+        //   generateScopedName: '[local]___[hash:base64:5]',
+        // },
       }),
       nodeResolve(),
       commonjs(),
-      {
-        transform(code, id) {
-          console.log('vvvvvvvvvvvvvvv')
-          console.log(id)
-          console.log('---------------')
-          console.log(code)
-          console.log('^^^^^^^^^^^^^^^')
-          // not returning anything, so doesn't affect bundle
-        },
-      },
+      // {
+      //   transform(code, id) {
+      //     console.log('🏄🏻vvvvvvvvvvvvvvv')
+      //     console.log(id)
+      //     console.log('📦---------------')
+      //     console.log(code)
+      //     console.log('🏄🏻^^^^^^^^^^^^^^^')
+      //     // not returning anything, so doesn't affect bundle
+      //   },
+      // },
 
       // fix https://github.com/rollup/plugins/issues/608#issuecomment-787460629
       // typescript({
@@ -83,7 +102,6 @@ export default defineConfig([
       //     'vite-env.d.ts',
       //     // 'packages/components/antd/affix/src/Affix.vue?vue&type=script&setup=true&lang.ts',
       //   ],
-      //   rootDir: '.',
       //   exclude: [
       //     'node_modules/**',
       //     'packages/components/antd/es/**',
@@ -91,8 +109,26 @@ export default defineConfig([
       //   ],
       //   outDir: 'packages/components/antd/',
       // }),
-      typescript2({}),
+      // cssOnly({}),
+      postcss({
+        extract: true,
+        plugins: [
+          function (css) {
+            console.log('🏄🏻vvvvvvvvvvvvvvv')
+            console.log(css)
+            console.log('📦---------------')
+          },
+        ],
+        // modules: true,
+        // autoModules: true,
+        // onImport(id) {
+        //   console.log('🏄🏻vvvvvvvvvvvvvvv')
+        //   console.log(id)
+        //   console.log('📦---------------')
+        // },
+      }),
+      typescript2(),
     ],
-    external: ['vue'],
+    external: ['vue', 'ant-design-vue'],
   },
 ])

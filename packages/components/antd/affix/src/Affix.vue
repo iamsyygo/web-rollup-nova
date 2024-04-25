@@ -12,4 +12,12 @@ const props = defineProps<{
 console.log(props)
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.affix {
+  color: red;
+
+  p {
+    color: blue;
+  }
+}
+</style>

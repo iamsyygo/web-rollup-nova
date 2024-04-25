@@ -24,5 +24,8 @@
   "license": "ISC",
   "dependencies": {
     "ant-design-vue": "^4.2.1"
+  },
+  "devDependencies": {
+    "rollup-plugin-postcss": "^4.0.2"
   }
 }
