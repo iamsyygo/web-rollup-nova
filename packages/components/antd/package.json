@@ -2,7 +2,9 @@
   "name": "@nova/antd",
   "version": "1.0.0",
   "description": "extended ant-design-vue",
-  "scripts": {},
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup --config rollup.config.ts --configPlugin typescript2"
+  },
   "keywords": [],
   "files": [
     "es",
@@ -11,7 +13,7 @@
   ],
   "main": "lib/index.js",
   "module": "es/index.js",
-  "typings": "es/index.d.ts",
+  "typings": "global.d.ts",
   "exports": {
     ".": {
       "import": "./es/index.js",

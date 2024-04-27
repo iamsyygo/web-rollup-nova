@@ -35,5 +35,5 @@
   //   "rollup.*.ts",
   //   "scripts/*"
   // ],
-  "exclude": ["node_modules", "lib", "es", "dist"]
+  "exclude": ["node_modules", "lib", "es", "dist", "rollup.config.ts"]
 }

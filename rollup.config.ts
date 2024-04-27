@@ -7,7 +7,11 @@ import commonjs from '@rollup/plugin-commonjs'
 // import typescript from '@rollup/plugin-typescript'
 import typescript2 from 'rollup-plugin-typescript2'
 import clear from 'rollup-plugin-delete'
-import cssOnly from 'rollup-plugin-css-only'
+// import cssOnly from 'rollup-plugin-css-only'
+import dts from 'rollup-plugin-dts'
+// import filesize from 'rollup-plugin-filesize'
+import filesize from 'rollup-plugin-sizes'
+import { createFilter, normalizePath } from '@rollup/pluginutils'
 
 // maybe only antd is needed,migration may be required later
 import postcss from 'rollup-plugin-postcss'
@@ -76,6 +80,7 @@ export default defineConfig([
         target: 'browser',
         preprocessStyles: true,
         transformAssetUrls: true,
+        compilerOptions: {},
 
         // cssModulesOptions: {
         //   generateScopedName: '[local]___[hash:base64:5]',
@@ -128,7 +133,18 @@ export default defineConfig([
         // },
       }),
       typescript2(),
+      filesize(),
     ],
     external: ['vue', 'ant-design-vue'],
+  },
+  {
+    input: 'packages/components/antd/es/index.d.ts',
+    output: [
+      {
+        file: 'packages/components/antd/global.d.ts',
+        format: 'es',
+      },
+    ],
+    plugins: [dts()],
   },
 ])
